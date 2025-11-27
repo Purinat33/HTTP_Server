@@ -6,7 +6,6 @@ from connection import *
 def build_request(url=HOST):
     header = f"""GET / HTTP/1.1
 Host: {HOST}
-
     
     """
 
