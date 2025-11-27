@@ -45,3 +45,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             break
 
     s.close()
+
+# Can OOP deal with the connection between the functions?
+class HTTPServer:
+    def __init__(self, Host, Port):
+        self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
