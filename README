@@ -1,0 +1,13 @@
+# Making a HTTP Server from Scratch (or Python)
+
+## Todo List:
+
+1. Socket Programming (1 Client, 1 Server)
+   - TCP
+2. More functionality
+   - HTTP Server requirements.
+   - Header
+   - Body
+   - Response
+   - Methods
+3. More Clients: Threads
