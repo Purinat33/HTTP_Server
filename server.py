@@ -1,9 +1,12 @@
 from connection import *
+from datetime import datetime
 
 
 def get(url='/'):
     if url == '/':
-        pass
+        return build_response(200)
+    else:
+        return build_response(404)
 
 
 def parse_header(header: bytes):
@@ -14,18 +17,21 @@ def parse_header(header: bytes):
     # Line 0
     if 'GET' in lines[0]:
         targets = lines[0].split(' ')  # GET / HTTP/1.1
-        get(targets[1])  # /
+        return get(targets[1])  # /
 
 
-def build_response(method, target, data):
-    """_summary_
+def build_response(status):
+    now = datetime.now()
+    day_idx = now.weekday()
+    day_lst = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    day = day_lst[day_idx]
 
-    Args:
-        method (_type_): _description_
-        target (_type_): _description_
-        data (_type_): _description_
-    """
-    pass
+    if status == 200:
+        header = f"""HTTP/1.1 200 OK
+        Content-Type: text/html; charset=utf-8
+        Date: {day}, 
+        """
+        return header.encode()
 
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -37,16 +43,17 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         print(f"Connection Accepted from {addr}")
         while True:
             data = conn.recv(1024)
-            parse_header(data)
+            res = parse_header(data)
             if not data:
                 break
-            # build_response()
-            print(data)
+            conn.sendall(res)
             break
 
     s.close()
 
 # Can OOP deal with the connection between the functions?
+
+
 class HTTPServer:
     def __init__(self, Host, Port):
         self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

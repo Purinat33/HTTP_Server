@@ -13,7 +13,7 @@ Host: {HOST}
 
 
 def parse_response(response: bytes):
-    pass
+    return response.decode()
 
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -22,3 +22,4 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
     res = s.recv(1024)
     data = parse_response(res)
+    print(data)
